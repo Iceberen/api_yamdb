@@ -66,6 +66,8 @@ DATABASES = {
 }
 
 
+
+
 # Password validation
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -83,6 +85,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'users.User'
 
 # Internationalization
 

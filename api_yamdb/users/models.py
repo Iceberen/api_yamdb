@@ -16,6 +16,7 @@ class UserManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(email=email, username=username)
         user.set_password(password)
+        user.role = User.Role.USER
         user.save(using=self._db)
         return user
 
@@ -23,17 +24,27 @@ class UserManager(BaseUserManager):
         user = self.create_user(email, username, password)
         user.is_staff = True
         user.is_superuser = True
+        user.role = User.Role.ADMIN
         user.save(using=self._db)
         return user
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    class Role(models.TextChoices):
+        USER = 'user', 'User'
+        MODERATOR = 'moderator', 'Moderator'
+        ADMIN = 'admin', 'Admin'
+
     email = models.EmailField(max_length=254, unique=True)
     username = models.CharField(max_length=150, unique=True)
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
-    bio = models.TextField()
-    role = models.CharField(max_length=150)
+    first_name = models.CharField(max_length=150, blank=True)
+    last_name = models.CharField(max_length=150, blank=True)
+    bio = models.TextField(blank=True)
+    role = models.CharField(
+        max_length=10,
+        choices=Role.choices,
+        default=Role.USER
+    )
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
