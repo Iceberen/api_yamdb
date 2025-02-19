@@ -1,11 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from api_yamdb.reviews.constants import (
+from reviews.constants import (
     TEXT_LIMIT,
     FIELD_LENGTH,
 )
-from models import (
+from reviews.models.reviews import (
     Review,
 )
 
