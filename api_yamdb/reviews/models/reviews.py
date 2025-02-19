@@ -7,7 +7,6 @@ from api_yamdb.reviews.constants import (
     FIELD_LENGTH,
     MIN_SCORE,
     MAX_SCORE,
-    VALIDATOR_MESSAGE
 )
 from reviews.models import (
     Title,
@@ -39,7 +38,7 @@ class Review(models.Model):
             MinValueValidator(MIN_SCORE),
             MaxValueValidator(MAX_SCORE)
         ),
-        error_messages={'validators': VALIDATOR_MESSAGE}
+        error_messages={'validators': f'Оценка от {MIN_SCORE} до {MAX_SCORE}!'}
     )
     pub_date = models.DateTimeField(
         'дата публикации',
