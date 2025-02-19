@@ -1,6 +1,6 @@
 from django.db import models
 
-from constants import TEXT_LIMIT
+from api_yamdb.reviews.constants import TEXT_LIMIT
 from reviews.models import (
     reviews,
     users,
