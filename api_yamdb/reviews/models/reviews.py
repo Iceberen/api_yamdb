@@ -1,25 +1,34 @@
+from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
-from api_yamdb.reviews.constants import TEXT_LIMIT
-from reviews.models import (
-    titles,  # Coming soon ...
-    users,
+from api_yamdb.reviews.constants import (
+    TEXT_LIMIT,
+    FIELD_LENGTH,
+    MIN_SCORE,
+    MAX_SCORE,
+    VALIDATOR_MESSAGE
 )
+from reviews.models import (
+    Title,
+)
+
+
+User = get_user_model()
 
 
 class Review(models.Model):
     title = models.ForeignKey(
-        titles.Title,
+        Title,
         on_delete=models.CASCADE,
         related_name='reviews',
         verbose_name='произведение'
     )
     text = models.CharField(
-        max_length=200
+        max_length=FIELD_LENGTH
     )
     author = models.ForeignKey(
-        users.User,
+        User,
         on_delete=models.CASCADE,
         related_name='reviews',
         verbose_name='автор'
@@ -27,10 +36,10 @@ class Review(models.Model):
     score = models.IntegerField(
         'рейтинг',
         validators=(
-            MinValueValidator(1),
-            MaxValueValidator(10)
+            MinValueValidator(MIN_SCORE),
+            MaxValueValidator(MAX_SCORE)
         ),
-        error_messages={'validators': 'Оценка от 1 до 10!'}
+        error_messages={'validators': VALIDATOR_MESSAGE}
     )
     pub_date = models.DateTimeField(
         'дата публикации',

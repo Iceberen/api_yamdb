@@ -1,25 +1,31 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
-from api_yamdb.reviews.constants import TEXT_LIMIT
-from reviews.models import (
-    reviews,
-    users,
+from api_yamdb.reviews.constants import (
+    TEXT_LIMIT,
+    FIELD_LENGTH,
 )
+from models import (
+    Review,
+)
+
+
+User = get_user_model()
 
 
 class Comment(models.Model):
     review = models.ForeignKey(
-        reviews.Review,
+        Review,
         on_delete=models.CASCADE,
         related_name='comments',
         verbose_name='отзыв'
     )
     text = models.CharField(
         'текст комментария',
-        max_length=200
+        max_length=FIELD_LENGTH
     )
     author = models.ForeignKey(
-        users.User,
+        User,
         on_delete=models.CASCADE,
         related_name='comments',
         verbose_name='автор'
