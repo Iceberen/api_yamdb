@@ -9,4 +9,5 @@ router_v1.register('users', UserViewSet, basename='users')
 
 urlpatterns = [
     path('', include(router_v1.urls)),
+    path('auth/', include('api.v1.auth.urls')),
 ]
