@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
     'reviews.apps.UsersConfig',
+    'users.apps.UsersConfig',
     'rest_framework',
     'django_filters',
 ]
@@ -79,7 +80,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'reviews.User'
+AUTH_USER_MODEL = 'users.User'
 
 
 LANGUAGE_CODE = 'en-us'

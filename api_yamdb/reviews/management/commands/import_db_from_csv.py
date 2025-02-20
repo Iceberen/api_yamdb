@@ -3,7 +3,7 @@ import csv
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.shortcuts import get_object_or_404
-from reviews.models import Category, Comment, Genre, Review, Titles
+from reviews.old_models import Category, Comment, Genre, Review, Titles
 
 PATH = 'static/data/'
 User = get_user_model()

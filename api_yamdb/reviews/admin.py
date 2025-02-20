@@ -1,18 +1,18 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 
-from .models import (
-    category,
-    comments,
-    genre,
-    reviews,
-    titles,
+from reviews.models import (
+    Category,
+    Comment,
+    Genre,
+    Review,
+    Titles,
 )
 
 User = get_user_model()
 
 
-@admin.register(reviews.Review)
+@admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     list_display = (
         'title',
@@ -25,7 +25,7 @@ class ReviewAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
-@admin.register(comments.Comment)
+@admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = (
         'review',
@@ -38,27 +38,7 @@ class CommentAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
-@admin.register(User)
-class UserAdmin(admin.ModelAdmin):
-    list_display = (
-        'id',
-        'username',
-        'first_name',
-        'last_name',
-        'email',
-        'role',
-        'bio',
-    )
-    list_editable = ('role',)
-    search_fields = (
-        'username',
-        'bio',
-    )
-    list_filter = ('role',)
-    empty_value_display = '-пусто-'
-
-
-@admin.register(category.Category)
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (
         'id',
@@ -70,7 +50,7 @@ class CategoryAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
-@admin.register(genre.Genre)
+@admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
     list_display = (
         'id',
@@ -82,7 +62,7 @@ class GenreAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
-@admin.register(titles.Titles)
+@admin.register(Titles)
 class TitleAdmin(admin.ModelAdmin):
     list_display = (
         'id',
