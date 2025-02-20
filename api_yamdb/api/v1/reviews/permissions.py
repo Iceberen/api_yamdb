@@ -9,8 +9,7 @@ class IsAdminOrReadOnly(permissions.BasePermission):
                 request.user.role == 'MODERATOR'
                 or request.user.role == 'ADMIN'
             )
-        )  # не совсем понимаю как тут сделать проверку на модератора и админа
-        # может быть можно сделать методы типа встроенного is_authenticated
+        )
 
 
 class IsAdminModeratorOwnerOrReadOnly(permissions.BasePermission):
