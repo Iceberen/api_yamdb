@@ -25,7 +25,6 @@ class UserViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_permissions(self):
-
         if self.action in ['list', 'retrieve', 'destroy', 'partial_update']:
             return [IsAdminAndAuthenticated()]
         return super().get_permissions()
@@ -35,13 +34,12 @@ class UserViewSet(viewsets.ModelViewSet):
         user = request.user
 
         if request.method == 'PATCH':
-            serializer = self.get_serializer(user, data=request.data,
-                                             partial=True)
+            serializer = self.get_serializer(
+                user, data=request.data, partial=True
+            )
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data, status=HTTPStatus.OK)
 
         serializer = self.get_serializer(user)
         return Response(serializer.data)
-
-

@@ -10,8 +10,10 @@ def send_confirmation_email(confirmation_code: str, email: str) -> None:
     message = f'{subject}: {confirmation_code}'
 
     send_mail(
-        subject=subject, message=message,
-        from_email=settings.ADMIN_EMAIL, recipient_list=[email]
+        subject=subject,
+        message=message,
+        from_email=settings.ADMIN_EMAIL,
+        recipient_list=[email],
     )
 
 

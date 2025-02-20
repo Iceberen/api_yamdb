@@ -37,9 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(max_length=254, unique=True)
     username = models.CharField(
-        max_length=150,
-        unique=True,
-        validators=(UnicodeUsernameValidator(),)
+        max_length=150, unique=True, validators=(UnicodeUsernameValidator(),)
     )
     first_name = models.CharField(max_length=150, blank=True)
     last_name = models.CharField(max_length=150, blank=True)
@@ -60,15 +58,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     def clean(self):
-        if self.username.lower() == "me":
-            raise ValidationError({"username": "Имя пользователя не может быть 'me'."})
+        if self.username.lower() == 'me':
+            raise ValidationError(
+                {'username': "Имя пользователя не может быть 'me'."}
+            )
 
     @property
     def is_admin(self):
         """Проверяет, является ли пользователь администратором."""
-        return (
-                self.is_staff
-                or self.role == 'admin')
+        return self.is_staff or self.role == 'admin'
 
     @property
     def is_moderator(self):
