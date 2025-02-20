@@ -1,22 +1,21 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-
+from api.v1.validators import validate_username
 
 User = get_user_model()
 
 class SignupSerializer(serializers.Serializer):
 
     email = serializers.EmailField(max_length=254, required=True)
-    username = serializers.RegexField(r'^[\w.@+-]+$', max_length=150, required=True)
+    username = serializers.CharField(
+        max_length=150,
+        required=True,
+        validators=(validate_username,)
+    )
 
-    def validate_username(self, value):
-        """Запрещаем использовать 'me' в качестве имени пользователя."""
-        if value.lower() == 'me':
-            raise serializers.ValidationError('Нельзя использовать "me" в качестве username.')
-        return value
 
     def validate(self, attrs):
-        """Глобальная валидация: запрещаем использование email и username, если они принадлежат разным пользователям."""
+        """Запрещаем использование email и username, если они принадлежат разным пользователям."""
         email = attrs["email"]
         username = attrs["username"]
 
@@ -38,7 +37,13 @@ class SignupSerializer(serializers.Serializer):
             defaults={"username": validated_data['username']}
         )
 
-        if not created and user.username != validated_data['username']:
-            raise serializers.ValidationError({"email": "Этот email уже используется другим пользователем."})
-
         return user
+
+
+class TokenSerializer(serializers.Serializer):
+    username = serializers.CharField(
+        max_length=150,
+        required=True,
+        validators=(validate_username,)
+    )
+    confirmation_code = serializers.CharField(required=True, write_only=True)

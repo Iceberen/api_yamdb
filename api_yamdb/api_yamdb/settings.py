@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'reviews.apps.UsersConfig',
     'users.apps.UsersConfig',
     'rest_framework',
+    "rest_framework_simplejwt",
     'django_filters',
 ]
 
