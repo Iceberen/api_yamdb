@@ -62,3 +62,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     def clean(self):
         if self.username.lower() == "me":
             raise ValidationError({"username": "Имя пользователя не может быть 'me'."})
+
+    @property
+    def is_admin(self):
+        """Проверяет, является ли пользователь администратором."""
+        return (
+                self.is_staff
+                or self.role == 'admin')
+
+    @property
+    def is_moderator(self):
+        """Проверяет, является ли пользователь модератором."""
+        return self.role == 'moderator'

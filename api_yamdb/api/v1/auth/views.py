@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.v1.auth.serializers import SignupSerializer, TokenSerializer
-from api.v1.auth.utils import send_confirmation_email, get_access_tokens_for_user
+from api.v1.utils import send_confirmation_email, get_access_tokens_for_user
 
 User = get_user_model()
 

@@ -16,11 +16,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    "rest_framework_simplejwt",
     'api.apps.ApiConfig',
     'reviews.apps.UsersConfig',
     'users.apps.UsersConfig',
-    'rest_framework',
-    "rest_framework_simplejwt",
     'django_filters',
 ]
 
@@ -82,6 +82,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = 'users.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+}
 
 
 LANGUAGE_CODE = 'en-us'

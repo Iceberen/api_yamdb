@@ -15,3 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
             'bio',
             'role',
         )
+
+    def update(self, instance, validated_data):
+        validated_data.pop('role', None)
+        return super().update(instance, validated_data)
