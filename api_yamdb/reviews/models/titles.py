@@ -1,6 +1,6 @@
 from django.db import models
 
-from api_yamdb.reviews.constants import (
+from reviews.constants import (
     FIELD_LENGTH,
 )
 from reviews.models import (

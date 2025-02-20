@@ -62,7 +62,7 @@ class CategoryAdmin(admin.ModelAdmin):
         'name',
         'slug',
     )
-    list_editable = ('name', 'slug')
+    list_editable = ('name',)
     search_fields = ('name', 'slug')
     empty_value_display = '-пусто-'
 
@@ -74,7 +74,7 @@ class GenreAdmin(admin.ModelAdmin):
         'name',
         'slug',
     )
-    list_editable = ('name', 'slug')
+    list_editable = ('name',)
     search_fields = ('name', 'slug')
     empty_value_display = '-пусто-'
 
