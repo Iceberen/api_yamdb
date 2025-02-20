@@ -1,13 +1,18 @@
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 
-from .models import (
-    comments,
-    reviews,
-    users,
+from reviews.models import (
+    Category,
+    Comment,
+    Genre,
+    Review,
+    Titles,
 )
 
+User = get_user_model()
 
-@admin.register(reviews.Review)
+
+@admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     list_display = (
         'title',
@@ -20,7 +25,7 @@ class ReviewAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
-@admin.register(comments.Comment)
+@admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = (
         'review',
@@ -30,4 +35,40 @@ class CommentAdmin(admin.ModelAdmin):
     )
     search_fields = ('review',)
     list_filter = ('review',)
+    empty_value_display = '-пусто-'
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'name',
+        'slug',
+    )
+    list_editable = ('name',)
+    search_fields = ('name', 'slug')
+    empty_value_display = '-пусто-'
+
+
+@admin.register(Genre)
+class GenreAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'name',
+        'slug',
+    )
+    list_editable = ('name',)
+    search_fields = ('name', 'slug')
+    empty_value_display = '-пусто-'
+
+
+@admin.register(Titles)
+class TitleAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'name',
+        'year',
+        'description',
+    )
+    search_fields = ('name', 'year')
     empty_value_display = '-пусто-'
