@@ -15,7 +15,7 @@ User = get_user_model()
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
+    queryset = User.objects.all().order_by('id')
     serializer_class = UserSerializer
     filter_backends = (SearchFilter,)
     search_fields = ('username',)

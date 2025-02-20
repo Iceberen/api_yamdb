@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from reviews.constants import CHAR_MAX_LENGTH, EMAIL_MAX_LENGTH
 
 from api.v1.validators import validate_username
 
@@ -7,9 +8,11 @@ User = get_user_model()
 
 
 class SignupSerializer(serializers.Serializer):
-    email = serializers.EmailField(max_length=254, required=True)
+    email = serializers.EmailField(max_length=EMAIL_MAX_LENGTH, required=True)
     username = serializers.CharField(
-        max_length=150, required=True, validators=(validate_username,)
+        max_length=CHAR_MAX_LENGTH,
+        required=True,
+        validators=(validate_username,),
     )
 
     def validate(self, attrs):
@@ -30,7 +33,7 @@ class SignupSerializer(serializers.Serializer):
             raise serializers.ValidationError(
                 {
                     'username': 'Этот username'
-                                'уже используется другим пользователем.'
+                    'уже используется другим пользователем.'
                 }
             )
 
@@ -48,6 +51,8 @@ class SignupSerializer(serializers.Serializer):
 
 class TokenSerializer(serializers.Serializer):
     username = serializers.CharField(
-        max_length=150, required=True, validators=(validate_username,)
+        max_length=CHAR_MAX_LENGTH,
+        required=True,
+        validators=(validate_username,),
     )
     confirmation_code = serializers.CharField(required=True, write_only=True)

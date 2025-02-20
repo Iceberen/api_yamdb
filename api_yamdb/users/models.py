@@ -6,6 +6,11 @@ from django.contrib.auth.models import (
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.exceptions import ValidationError
 from django.db import models
+from reviews.constants import (
+    CHAR_MAX_LENGTH,
+    EMAIL_MAX_LENGTH,
+    ROLE_MAX_LENGTH,
+)
 
 
 class UserManager(BaseUserManager):
@@ -35,15 +40,17 @@ class User(AbstractBaseUser, PermissionsMixin):
         MODERATOR = 'moderator', 'Moderator'
         ADMIN = 'admin', 'Admin'
 
-    email = models.EmailField(max_length=254, unique=True)
+    email = models.EmailField(max_length=EMAIL_MAX_LENGTH, unique=True)
     username = models.CharField(
-        max_length=150, unique=True, validators=(UnicodeUsernameValidator(),)
+        max_length=CHAR_MAX_LENGTH,
+        unique=True,
+        validators=(UnicodeUsernameValidator(),),
     )
-    first_name = models.CharField(max_length=150, blank=True)
-    last_name = models.CharField(max_length=150, blank=True)
+    first_name = models.CharField(max_length=CHAR_MAX_LENGTH, blank=True)
+    last_name = models.CharField(max_length=CHAR_MAX_LENGTH, blank=True)
     bio = models.TextField(blank=True)
     role = models.CharField(
-        max_length=10, choices=Role.choices, default=Role.USER
+        max_length=ROLE_MAX_LENGTH, choices=Role.choices, default=Role.USER
     )
 
     is_active = models.BooleanField(default=True)
