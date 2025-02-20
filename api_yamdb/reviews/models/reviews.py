@@ -20,29 +20,27 @@ class Review(models.Model):
         Titles,
         on_delete=models.CASCADE,
         related_name='reviews',
-        verbose_name='произведение'
+        verbose_name='произведение',
     )
-    text = models.CharField(
-        max_length=FIELD_LENGTH
-    )
+    text = models.CharField(max_length=FIELD_LENGTH)
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name='reviews',
-        verbose_name='автор'
+        verbose_name='автор',
     )
     score = models.IntegerField(
         'рейтинг',
         validators=(
             MinValueValidator(MIN_SCORE),
-            MaxValueValidator(MAX_SCORE)
+            MaxValueValidator(MAX_SCORE),
         ),
-        error_messages={'validators': f'Оценка от {MIN_SCORE} до {MAX_SCORE}!'}
+        error_messages={
+            'validators': f'Оценка от {MIN_SCORE} до {MAX_SCORE}!'
+        },
     )
     pub_date = models.DateTimeField(
-        'дата публикации',
-        auto_now_add=True,
-        db_index=True
+        'дата публикации', auto_now_add=True, db_index=True
     )
 
     class Meta:
@@ -50,9 +48,13 @@ class Review(models.Model):
         verbose_name_plural = 'Отзывы'
         constraints = [
             models.UniqueConstraint(
-                fields=('title', 'author', ),
-                name='unique review'
-            )]
+                fields=(
+                    'title',
+                    'author',
+                ),
+                name='unique review',
+            )
+        ]
         ordering = ('pub_date',)
 
     def __str__(self):

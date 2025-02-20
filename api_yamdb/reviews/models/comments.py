@@ -17,22 +17,17 @@ class Comment(models.Model):
         Review,
         on_delete=models.CASCADE,
         related_name='comments',
-        verbose_name='отзыв'
+        verbose_name='отзыв',
     )
-    text = models.CharField(
-        'текст комментария',
-        max_length=FIELD_LENGTH
-    )
+    text = models.CharField('текст комментария', max_length=FIELD_LENGTH)
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name='comments',
-        verbose_name='автор'
+        verbose_name='автор',
     )
     pub_date = models.DateTimeField(
-        'дата публикации',
-        auto_now_add=True,
-        db_index=True
+        'дата публикации', auto_now_add=True, db_index=True
     )
 
     class Meta:

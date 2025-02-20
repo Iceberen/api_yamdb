@@ -41,9 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=150, blank=True)
     bio = models.TextField(blank=True)
     role = models.CharField(
-        max_length=10,
-        choices=Role.choices,
-        default=Role.USER
+        max_length=10, choices=Role.choices, default=Role.USER
     )
 
     is_active = models.BooleanField(default=True)

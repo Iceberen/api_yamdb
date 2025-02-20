@@ -27,11 +27,11 @@ class Command(BaseCommand):
                     role=row[3],
                     bio=row[4],
                     first_name=row[5],
-                    last_name=row[6]
+                    last_name=row[6],
                 )
                 user.save()
 
-        with open(f'{PATH}/category.csv', encoding="utf-8") as category_db:
+        with open(f'{PATH}/category.csv', encoding='utf-8') as category_db:
             category_data = csv.reader(category_db)
             next(category_data)
             for row in category_data:
@@ -42,7 +42,7 @@ class Command(BaseCommand):
                 )
                 category.save()
 
-        with open(f'{PATH}/genre.csv', encoding="utf-8") as genre_db:
+        with open(f'{PATH}/genre.csv', encoding='utf-8') as genre_db:
             genre_data = csv.reader(genre_db)
             next(genre_data)
             for row in genre_data:
@@ -53,7 +53,7 @@ class Command(BaseCommand):
                 )
                 genre.save()
 
-        with open(f'{PATH}/titles.csv', encoding="utf-8") as titles_db:
+        with open(f'{PATH}/titles.csv', encoding='utf-8') as titles_db:
             titles_data = csv.reader(titles_db)
             next(titles_data)
             for row in titles_data:
@@ -61,11 +61,11 @@ class Command(BaseCommand):
                     id=row[0],
                     name=row[1],
                     year=row[2],
-                    category=Category(pk=row[3])
+                    category=Category(pk=row[3]),
                 )
                 title.save()
 
-        with open(f'{PATH}/review.csv', encoding="utf-8") as review_db:
+        with open(f'{PATH}/review.csv', encoding='utf-8') as review_db:
             review_data = csv.reader(review_db)
             next(review_data)
             for row in review_data:
@@ -79,7 +79,7 @@ class Command(BaseCommand):
                 )
                 review.save()
 
-        with open(f'{PATH}/comments.csv', encoding="utf-8") as comments_db:
+        with open(f'{PATH}/comments.csv', encoding='utf-8') as comments_db:
             comments_data = csv.reader(comments_db)
             next(comments_data)
             for row in comments_data:
@@ -92,7 +92,7 @@ class Command(BaseCommand):
                 )
                 comment.save()
 
-        with open(f'{PATH}/genre_title.csv', encoding="utf-8") as gt_db:
+        with open(f'{PATH}/genre_title.csv', encoding='utf-8') as gt_db:
             gt_data = csv.reader(gt_db)
             next(gt_db)
             for row in gt_data:

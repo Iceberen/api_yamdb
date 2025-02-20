@@ -50,7 +50,10 @@ class UserAdmin(admin.ModelAdmin):
         'bio',
     )
     list_editable = ('role',)
-    search_fields = ('username', 'bio',)
+    search_fields = (
+        'username',
+        'bio',
+    )
     list_filter = ('role',)
     empty_value_display = '-пусто-'
 

@@ -8,14 +8,14 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ('name', 'slug')
-        lookup_field = "slug"
+        lookup_field = 'slug'
 
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
         fields = ('name', 'slug')
-        lookup_field = "slug"
+        lookup_field = 'slug'
 
 
 class TitlesSerializer(serializers.ModelSerializer):
@@ -28,7 +28,14 @@ class TitlesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Titles
-        fields = ('id', 'name', 'year', 'description', 'genre', 'category',)
+        fields = (
+            'id',
+            'name',
+            'year',
+            'description',
+            'genre',
+            'category',
+        )
 
 
 class ReadOnlyTitlesSerializer(serializers.ModelSerializer):
@@ -40,7 +47,14 @@ class ReadOnlyTitlesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Titles
-        fields = ('id', 'name', 'year', 'description', 'genre', 'category',)
+        fields = (
+            'id',
+            'name',
+            'year',
+            'description',
+            'genre',
+            'category',
+        )
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -59,9 +73,9 @@ class ReviewSerializer(serializers.ModelSerializer):
         title_id = self.context['view'].kwargs.get('title_id')
         title = get_object_or_404(Titles, pk=title_id)
         exists_review = Review.objects.filter(
-                title=title, author=request.user
-            ).exists()
-        if request.method == 'POST' and  exists_review:
+            title=title, author=request.user
+        ).exists()
+        if request.method == 'POST' and exists_review:
             raise ValidationError('Только одно ревью можно оставить!')
         return data
 

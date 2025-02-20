@@ -10,17 +10,13 @@ from .validators import validate_year
 
 class Titles(models.Model):
     name = models.CharField(
-        verbose_name='Название произведение',
-        max_length=FIELD_LENGTH
+        verbose_name='Название произведение', max_length=FIELD_LENGTH
     )
     year = models.IntegerField(
-        verbose_name='Дата выхода',
-        validators=(validate_year,)
+        verbose_name='Дата выхода', validators=(validate_year,)
     )
     description = models.TextField(
-        verbose_name='Описание',
-        null=True,
-        blank=True
+        verbose_name='Описание', null=True, blank=True
     )
     category = models.ForeignKey(
         Category,
