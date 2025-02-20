@@ -8,8 +8,8 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from .serializers import UserSerializer
 from ..permissions import IsAdminAndAuthenticated
+from .serializers import UserSerializer
 
 User = get_user_model()
 

@@ -1,11 +1,13 @@
-from django.core.exceptions import ValidationError
 import re
+
+from django.core.exceptions import ValidationError
 
 USERNAME_REGEX = r'^[\w.@+-]+$'
 
 
 def validate_username(value):
-    """Запрещает использовать 'me' в качестве имени пользователя и проверяет допустимые символы."""
+    """Запрещает использовать 'me' в качестве имени
+    пользователя и проверяет допустимые символы."""
     if value.lower() == 'me':
         raise ValidationError('Нельзя использовать "me" в качестве username.')
 

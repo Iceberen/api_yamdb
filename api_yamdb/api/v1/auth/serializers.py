@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+
 from api.v1.validators import validate_username
 
 User = get_user_model()
@@ -12,7 +13,8 @@ class SignupSerializer(serializers.Serializer):
     )
 
     def validate(self, attrs):
-        """Запрещаем использование email и username, если они принадлежат разным пользователям."""
+        """Запрещаем использование email и username,
+        если они принадлежат разным пользователям."""
         email = attrs['email']
         username = attrs['username']
 
@@ -27,7 +29,8 @@ class SignupSerializer(serializers.Serializer):
         if user_with_username and user_with_username.email != email:
             raise serializers.ValidationError(
                 {
-                    'username': 'Этот username уже используется другим пользователем.'
+                    'username': 'Этот username'
+                                'уже используется другим пользователем.'
                 }
             )
 
