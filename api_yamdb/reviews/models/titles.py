@@ -1,10 +1,12 @@
 from django.db import models
 
-from reviews.constants import (
+from api_yamdb.reviews.constants import (
     FIELD_LENGTH,
 )
-from reviews.models.category import Category
-from reviews.models.genre import Genre
+from reviews.models import (
+    Category,
+    Genre
+)
 from .validators import validate_year
 
 
