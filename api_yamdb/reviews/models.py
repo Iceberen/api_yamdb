@@ -1,11 +1,7 @@
 from autoslug import AutoSlugField
-
-from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator
-
-from .validators import validate_year
-
+from django.db import models
 
 from reviews.constants import (
     FIELD_LENGTH,
@@ -13,6 +9,8 @@ from reviews.constants import (
     MIN_SCORE,
     TEXT_LIMIT,
 )
+
+from .validators import validate_year
 
 User = get_user_model()
 
