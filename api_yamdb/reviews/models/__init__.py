@@ -1,8 +1,6 @@
-from .users import User
-
-from .category import Category
-from .genre import Genre
-from .titles import Titles
-
-from .reviews import Review
-from .comments import Comment
+from .category import Category as Category
+from .comments import Comment as Comment
+from .genre import Genre as Genre
+from .reviews import Review as Review
+from .titles import Titles as Titles
+from .users import User as User

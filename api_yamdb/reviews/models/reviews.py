@@ -3,15 +3,14 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from reviews.constants import (
-    TEXT_LIMIT,
     FIELD_LENGTH,
-    MIN_SCORE,
     MAX_SCORE,
+    MIN_SCORE,
+    TEXT_LIMIT,
 )
 from reviews.models import (
     Titles,
 )
-
 
 User = get_user_model()
 

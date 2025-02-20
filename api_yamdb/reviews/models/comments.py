@@ -2,13 +2,12 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 from reviews.constants import (
-    TEXT_LIMIT,
     FIELD_LENGTH,
+    TEXT_LIMIT,
 )
 from reviews.models import (
     Review,
 )
-
 
 User = get_user_model()
 

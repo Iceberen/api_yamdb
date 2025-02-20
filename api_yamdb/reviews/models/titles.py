@@ -3,10 +3,8 @@ from django.db import models
 from reviews.constants import (
     FIELD_LENGTH,
 )
-from reviews.models import (
-    Category,
-    Genre
-)
+from reviews.models import Category, Genre
+
 from .validators import validate_year
 
 
