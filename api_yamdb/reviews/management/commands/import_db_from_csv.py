@@ -3,7 +3,7 @@ import csv
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.shortcuts import get_object_or_404
-from reviews.old_models import Category, Comment, Genre, Review, Titles
+from reviews.models import Category, Comment, Genre, Review, Title
 
 PATH = 'static/data/'
 User = get_user_model()
@@ -57,7 +57,7 @@ class Command(BaseCommand):
             titles_data = csv.reader(titles_db)
             next(titles_data)
             for row in titles_data:
-                title = Titles(
+                title = Title(
                     id=row[0],
                     name=row[1],
                     year=row[2],
@@ -71,7 +71,7 @@ class Command(BaseCommand):
             for row in review_data:
                 review = Review(
                     id=row[0],
-                    title=Titles(pk=row[1]),
+                    title=Title(pk=row[1]),
                     text=row[2],
                     author=User(pk=row[3]),
                     score=row[4],
@@ -87,7 +87,7 @@ class Command(BaseCommand):
                     id=row[0],
                     review=Review(pk=row[1]),
                     text=row[2],
-                    author=row[3],
+                    author=User(id=row[3]),
                     pub_date=row[4],
                 )
                 comment.save()
@@ -96,7 +96,7 @@ class Command(BaseCommand):
             gt_data = csv.reader(gt_db)
             next(gt_db)
             for row in gt_data:
-                title = get_object_or_404(Titles, id=row[1])
+                title = get_object_or_404(Title, id=row[1])
                 genre = get_object_or_404(Genre, id=row[2])
                 title.save()
                 title.genre.add(genre)

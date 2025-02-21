@@ -6,7 +6,7 @@ from reviews.models import (
     Comment,
     Genre,
     Review,
-    Titles,
+    Title,
 )
 
 User = get_user_model()
@@ -62,7 +62,7 @@ class GenreAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
-@admin.register(Titles)
+@admin.register(Title)
 class TitleAdmin(admin.ModelAdmin):
     list_display = (
         'id',
