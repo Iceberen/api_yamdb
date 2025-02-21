@@ -1,0 +1,35 @@
+[tool.ruff]
+src = ["yatube_api"]
+exclude = [
+    "tests/",
+    "*/migrations/",
+    "venv/",
+    "env/",
+]
+line-length = 79
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "UP",
+    "B",
+    "SIM",
+    "I",
+]
+ignore = [
+#    "W503",
+    "F811",
+#    "D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107",
+#    "D203", "D205", "D213",
+#    "D400", "D401",
+#    "N806", "N818"
+]
+[tool.ruff.lint.per-file-ignores]
+"settings.py" = ["E501"]
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.ruff.lint.mccabe]
+# Flag errors (`C901`) whenever the complexity level exceeds 5.
+max-complexity = 10
