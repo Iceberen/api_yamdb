@@ -27,5 +27,4 @@ sqlparse==0.5.3
 toml==0.10.2
 typing_extensions==4.12.2
 urllib3==1.26.20
-django-autoslug==1.9.9
 django-filter==23.1

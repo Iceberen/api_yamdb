@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
-from reviews.models import Category, Comment, Genre, Review, Titles
+from reviews.models import Category, Comment, Genre, Review, Title
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -18,27 +18,27 @@ class GenreSerializer(serializers.ModelSerializer):
         lookup_field = 'slug'
 
 
-class TitlesSerializer(serializers.ModelSerializer):
+class TitleSerializer(serializers.ModelSerializer):
     genre = serializers.SlugRelatedField(
-        slug_field='slug', many=True, queryset=Genre.objects.all()
+        slug_field='slug', many=True, queryset=Genre.objects
     )
     category = serializers.SlugRelatedField(
-        slug_field='slug', queryset=Category.objects.all()
+        slug_field='slug', queryset=Category.objects
     )
 
     class Meta:
-        model = Titles
+        model = Title
         fields = (
             'id',
             'name',
             'year',
-            'description',
             'genre',
             'category',
+            'description',
         )
 
 
-class ReadOnlyTitlesSerializer(serializers.ModelSerializer):
+class ReadOnlyTitleSerializer(serializers.ModelSerializer):
     rating = serializers.IntegerField(
         source='reviews__score__avg', read_only=True
     )
@@ -46,11 +46,12 @@ class ReadOnlyTitlesSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
 
     class Meta:
-        model = Titles
+        model = Title
         fields = (
             'id',
             'name',
             'year',
+            'rating',
             'description',
             'genre',
             'category',
@@ -71,7 +72,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     def validate(self, data):
         request = self.context['request']
         title_id = self.context['view'].kwargs.get('title_id')
-        title = get_object_or_404(Titles, pk=title_id)
+        title = get_object_or_404(Title, pk=title_id)
         exists_review = Review.objects.filter(
             title=title, author=request.user
         ).exists()

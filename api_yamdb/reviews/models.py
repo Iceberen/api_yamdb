@@ -1,4 +1,3 @@
-from autoslug import AutoSlugField
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
@@ -8,6 +7,7 @@ from reviews.constants import (
     MAX_SCORE,
     MIN_SCORE,
     TEXT_LIMIT,
+    NAME_LENGTH
 )
 
 from .validators import validate_year
@@ -17,13 +17,14 @@ User = get_user_model()
 
 class Category(models.Model):
     name = models.CharField(
-        max_length=FIELD_LENGTH,
+        max_length=NAME_LENGTH,
         verbose_name='Название категории',
     )
-    slug = AutoSlugField(
-        populate_from='name',
-        always_update=True,
-        null=True,
+    slug = models.SlugField(
+        max_length=NAME_LENGTH,
+        unique=True,
+        blank=True,
+        verbose_name='Идентификатор категории',
     )
 
     class Meta:
@@ -37,13 +38,14 @@ class Category(models.Model):
 
 class Genre(models.Model):
     name = models.CharField(
-        max_length=FIELD_LENGTH,
+        max_length=NAME_LENGTH,
         verbose_name='Название жанра',
     )
-    slug = AutoSlugField(
-        populate_from='name',
-        always_update=True,
+    slug = models.SlugField(
+        max_length=NAME_LENGTH,
+        unique=True,
         null=True,
+        verbose_name='Идентификатор жанра',
     )
 
     class Meta:
@@ -55,7 +57,7 @@ class Genre(models.Model):
         return self.name
 
 
-class Titles(models.Model):
+class Title(models.Model):
     name = models.CharField(
         verbose_name='Название произведение', max_length=FIELD_LENGTH
     )
@@ -69,11 +71,11 @@ class Titles(models.Model):
         Category,
         on_delete=models.SET_NULL,
         verbose_name='Категория',
-        related_name='titles',
+        related_name='title',
         null=True,
     )
     genre = models.ManyToManyField(
-        Genre, verbose_name='Жанр', related_name='titles', blank=True
+        Genre, verbose_name='Жанр', related_name='title', blank=True
     )
 
     class Meta:
@@ -87,7 +89,7 @@ class Titles(models.Model):
 
 class Review(models.Model):
     title = models.ForeignKey(
-        Titles,
+        Title,
         on_delete=models.CASCADE,
         related_name='reviews',
         verbose_name='произведение',
@@ -150,6 +152,9 @@ class Comment(models.Model):
     )
 
     class Meta:
+        ordering = [
+            "-pub_date",
+        ]
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
 
