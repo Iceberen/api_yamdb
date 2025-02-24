@@ -2,8 +2,8 @@ from django.db.models import Avg
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, mixins, viewsets
-from reviews.models import Category, Genre, Review, Title
 
+from reviews.models import Category, Genre, Review, Title
 from ..permissions import IsAdminModeratorOwnerOrReadOnly, IsAdminOrReadOnly
 from .filters import TitlesFilter
 from .serializers import (

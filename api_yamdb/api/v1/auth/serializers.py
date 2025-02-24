@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from reviews.constants import CHAR_MAX_LENGTH, EMAIL_MAX_LENGTH
 
+from reviews.constants import CHAR_MAX_LENGTH, EMAIL_MAX_LENGTH
 from api.v1.validators import validate_username
 
 User = get_user_model()

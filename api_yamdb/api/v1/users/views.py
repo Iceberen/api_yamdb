@@ -29,17 +29,21 @@ class UserViewSet(viewsets.ModelViewSet):
             return [IsAdminAndAuthenticated()]
         return super().get_permissions()
 
+    def get_user(self):
+        return self.request.user
+
     @action(detail=False, methods=['get', 'patch'], url_path='me')
     def me(self, request):
-        user = request.user
 
         if request.method == 'PATCH':
             serializer = self.get_serializer(
-                user, data=request.data, partial=True
+                self.get_user(),
+                data=request.data,
+                partial=True,
             )
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data, status=HTTPStatus.OK)
 
-        serializer = self.get_serializer(user)
+        serializer = self.get_serializer(self.get_user())
         return Response(serializer.data)

@@ -9,7 +9,6 @@ from reviews.constants import (
     TEXT_LIMIT,
     NAME_LENGTH
 )
-
 from .validators import validate_year
 
 User = get_user_model()
