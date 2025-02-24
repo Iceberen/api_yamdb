@@ -153,7 +153,7 @@ class Comment(models.Model):
 
     class Meta:
         ordering = [
-            "-pub_date",
+            '-pub_date',
         ]
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'

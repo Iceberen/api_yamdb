@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
+
 from reviews.models import Category, Comment, Genre, Review, Title
 
 
@@ -73,9 +74,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         request = self.context['request']
         title_id = self.context['view'].kwargs.get('title_id')
         title = get_object_or_404(Title, pk=title_id)
-        exists_review = Review.objects.filter(
-            title=title, author=request.user
-        ).exists()
+        exists_review = title.reviews.filter(author=request.user).exists()
         if request.method == 'POST' and exists_review:
             raise ValidationError('Только одно ревью можно оставить!')
         return data
